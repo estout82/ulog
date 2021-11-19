@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/decb6478-b2cf-4eef-97fe-7447a376d700/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/consoleulog",
+    "appService.deploySubpath": "."
+}
