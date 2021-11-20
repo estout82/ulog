@@ -1,29 +1,40 @@
 
-import React, { useState, useEffect } from 'react';
-import Row from './Row';
-import styles from '../styles/Grid.module.css';
+import React, { useState, useEffect, useContext } from 'react';
+import { useRouter } from 'next/router';
+import { Auth } from '../context/index';
+import styles from '../styles/Admin.module.css'
 
 function generateBlankGridData() {
-    let data = [];
+  let data = [];
 
-    for (let i = 0; i < 50 * 30; i++) {
-        data[i] = 0;
-    }
+  for (let i = 0; i < 50 * 30; i++) {
+      data[i] = 0;
+  }
 
-    return data;
+  return data;
 }
 
-const Grid = (props) => {
+export default function Admin() {
     const [page, setPage] = useState(1);
     const [format, setFormat] = useState(0);
     const [gridData, setGridData] = useState([0]);
 
+    const authContext = useContext(Auth);
+
+    const router = useRouter();
+
     useEffect(() => {
-        fetch(`/api/grid?page=${page}`)
+        fetch(`/api/grid?page=${page}`, {
+            headers: {
+                'x-auth': authContext.token
+            }
+        })
         .then(res => {
             if (res.status == 200) {
                 return res.json();
-            } else {
+            } else if (res.status == 401) {
+                router.push('/login');
+            } else {  
                 console.error(res);
             }
         })
@@ -66,7 +77,8 @@ const Grid = (props) => {
         fetch('/api/grid', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiIxMjM0IiwiaWF0IjoxNjM3MzYzNTgxLCJleHAiOjE2Mzc0NDk5ODF9.lXwKr9GFwEQIKWPK098eCqBW38Uyfy5LNhREa3p4yF0'
             },
             body: JSON.stringify(postData)
         })
@@ -88,7 +100,7 @@ const Grid = (props) => {
     }
 
     return (
-        <div>
+        <div className={ styles.container }>
             <div>
                 <h3>Page: { page }</h3>
                 <button onClick={ handleSave }>Save</button>
@@ -126,5 +138,3 @@ const Grid = (props) => {
         </div>
     );
 }
-
-export default Grid;

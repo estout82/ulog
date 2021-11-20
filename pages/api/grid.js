@@ -1,12 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-import fs from 'fs';
-
-function readAnimFile() {
-
-}
+const fs = require('fs');
+const auth = require('../../lib/auth');
 
 export default function handler(req, res) {
+  // require login
+  if (!auth.isLoggedIn(req)) {
+    res.status(401).json({
+      message: "Authentication required"
+    });
+
+    return;
+  }
 
   if (req.method == 'POST') {
     fs.readFile('./data/anim.json', (error, data) => {

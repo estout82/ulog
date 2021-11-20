@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import styles from '../styles/Grid.module.css';
+import styles from '../styles/Play.module.css';
 
 export default function Play(props) {
     const [animData, setAnimData] = useState({});
@@ -24,14 +24,7 @@ export default function Play(props) {
         .catch(res => {
             console.error(res);
         })
-    }, [])
-
-    useEffect(() => {
-        console.dir('render');
-        return () => {
-            console.dir('pre render');
-        };
-    });
+    }, []);
 
     function changePage() {
         setPage(current => {
@@ -50,7 +43,6 @@ export default function Play(props) {
                         return (
                             <p 
                                 className={ styles.cell } 
-                                onClick={ () => handleCellClick(index) } 
                                 key={ index }
                             >
                                 &#128293;
@@ -59,8 +51,7 @@ export default function Play(props) {
                     } else {
                         return (
                             <p 
-                                className={ styles.cell } 
-                                onClick={ () => handleCellClick(index) } 
+                                className={ styles.cell }
                                 key={ index }
                             >
                                 

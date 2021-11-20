@@ -2,9 +2,10 @@
 .container {
     margin: auto;
     display: grid;
-    grid-template-rows: repeat(50, 1fr);
+    grid-template-rows: repeat(30, 1fr);
     grid-template-columns: repeat(50, 1fr);
-    max-width: 900px;
+    padding-bottom: 8px;
+    padding-right: 8px;
 }
 
 .cell {
@@ -16,9 +17,3 @@
     text-align: center;
     user-select: none;
 }
-
-.cell:hover {
-    background: lightgrey;
-    cursor: pointer;
-}
-

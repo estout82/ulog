@@ -14,12 +14,12 @@ export default function handler(req, res) {
 
                 res.status(200).send({
                     data: JSON.stringify(animData)
-                })
+                });
             }
         })
     } else {
         res.status(405).send({
             message: "Method not allowed"
-        })
+        });
     }
 }
