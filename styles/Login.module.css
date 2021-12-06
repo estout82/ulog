@@ -1,0 +1,41 @@
+.title {
+    text-align: center;
+    color:rgb(145, 145, 145);
+    margin-top: 50px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form {
+    margin-top: 50px
+}
+
+.form .control input {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    background: rgb(145, 145, 145);
+    outline: none;
+    border: none;
+    color: white;
+}
+
+.form button {
+    margin-top: 10px;
+    appearance: none;
+    border-radius: 0;
+    padding: 10px 20px;
+    background:rgb(145, 145, 145);
+    color: white;
+    font-weight: bold;
+    border: none;
+    font-size: 1.2rem;
+}
+
+.form button:hover {
+    cursor: pointer;
+    background: rgb(206, 191, 102);
+}

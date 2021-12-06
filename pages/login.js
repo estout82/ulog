@@ -2,6 +2,7 @@
 import React, { useRef, useState, useContext } from 'react'
 import { useRouter } from 'next/router';
 import { AuthContext } from '../context/auth';
+import styles from '../styles/Login.module.css'
 
 export default function Index() {
     const [isValid, setIsValid] = useState();
@@ -44,13 +45,12 @@ export default function Index() {
     }
 
     return (
-        <div>
-            <h3>Login</h3>
-            <div>
-                <span>Secret: </span>
-                <input ref={ element }></input>
-            </div>
-            <div>
+        <div className={ styles.container }>
+            <h1 className={ styles.title }>Login</h1>
+            <div className={ styles.form }>
+                <div className={ styles.control }>
+                    <input ref={ element }></input>
+                </div>
                 <button onClick={ handleSubmit }>Submit</button>
             </div>
         </div>

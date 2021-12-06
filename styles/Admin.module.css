@@ -1,9 +1,19 @@
 
+
 .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.grid {
     margin: auto;
     display: grid;
     grid-template-rows: repeat(50, 1fr);
     grid-template-columns: repeat(50, 1fr);
+    margin-top: 50px;
 }
 
 .cell {
@@ -19,4 +29,50 @@
 .cell:hover {
     background: lightgrey;
     cursor: pointer;
+}
+
+.title {
+    text-align: center;
+    color:rgb(145, 145, 145);
+    margin-top: 50px;
+}
+
+.subtitle {
+    color:rgb(70, 123, 230);
+    text-align: center;
+    margin-top: 10px;
+}
+
+.controls {
+    color:rgb(145, 145, 145);
+    display: flex;
+}
+
+.controls * {
+    margin-right: 10px;;
+}
+
+.controls p {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    margin-top: 10px;
+    color: white;
+}
+
+.controls button {
+    margin-top: 10px;
+    appearance: none;
+    border-radius: 0;
+    padding: 10px 20px;
+    background:rgb(145, 145, 145);
+    color: white;
+    font-weight: bold;
+    border: none;
+    font-size: 1.2rem;
+}
+
+.controls button:hover {
+    cursor: pointer;
+    background: rgb(206, 191, 102);
 }

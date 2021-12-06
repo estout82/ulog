@@ -1,39 +1,43 @@
 
-import Play from '../components/Play'
-import styles from '../styles/Home.module.css'
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
+import styles from '../styles/new/Index.module.css'
 
-export default function Index() {
-  return (
-    <div className={ styles.container }>
+export default function New() {
+    const [animations, setAnimations] = useState([]);
 
-      <div className={ styles.header }>
-        <div className={ styles.nav }>
-          <p>Elements</p>
-          <p>Sources</p>
-          <p className={ styles.selected }>Console</p>
-        </div>
-      </div>
+    useEffect(() => {
+        fetch('http://localhost:3000/api/animations/')
+        .then(res => {
+            return res.json();
+        })
+        .then(json => {
+            setAnimations(json);
+        })
+        .catch(res => {
+            console.error(res);
+        })
+    }, [])
 
-      <div className={ styles.line }>
-        <div className={ styles.request }>
-          <p className={ styles.prompt }>&gt;</p>
-          <p className={ styles.code }>
-            console.<span className={ styles.yellow }>ignite</span>()
-          </p>
-        </div>
-        <div className={ styles.response }>
-          <p className={ styles.prompt }>&lt;</p>
-          <Play />
-        </div>
-      </div>
+    return (
+        <>
+            <h1 className={ styles.title }>New Console.Ulog</h1>
+            <p className={ styles.subtitle }>Start typing for an interactive experience</p>
 
-      <div>
-        <div className={ styles.request }>
-          <p className={ styles.newPrompt }>&gt;</p>
-          <input className={ styles.input }></input>
-        </div>
-      </div>
-
-    </div>
-  )
+            <div className={ styles.container }>
+                {
+                    animations.map((animation, index) => {
+                        return (
+                            <div className={ styles.animation } key={ index }>
+                                <h3>{ animation.name }</h3>
+                                <a href={ `/animation/${animation.slug}` }>
+                                    View
+                                </a>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+        </>
+    )
 }

@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { Auth } from '../context/index';
-import styles from '../styles/Admin.module.css'
+import { Auth } from '../../../context/index';
+import styles from '../../../styles/Admin.module.css'
 
 function generateBlankGridData() {
   let data = [];
@@ -14,7 +14,7 @@ function generateBlankGridData() {
   return data;
 }
 
-export default function Admin() {
+export default function Admin({ slug }) {
     const [page, setPage] = useState(1);
     const [format, setFormat] = useState(0);
     const [gridData, setGridData] = useState([0]);
@@ -24,22 +24,16 @@ export default function Admin() {
     const router = useRouter();
 
     useEffect(() => {
-        fetch(`/api/grid?page=${page}`, {
+        fetch(`http://localhost:3000/api/animations/${slug}/frames/${page}`, {
             headers: {
-                'x-auth': authContext.token
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJhbmltYXRpb24iOnsiaWQiOjF9fQ.'
             }
         })
         .then(res => {
-            if (res.status == 200) {
-                return res.json();
-            } else if (res.status == 401) {
-                router.push('/login');
-            } else {  
-                console.error(res);
-            }
+            return res.json();
         })
-        .then(data => {
-            setGridData(JSON.parse(data.data));
+        .then(json => {
+            setGridData(JSON.parse(json.data.data));
         })
         .catch(res => {
             console.error(res);
@@ -70,15 +64,16 @@ export default function Admin() {
 
     const handleSave = () => {
         const postData = {
-            page: page,
-            data: gridData
+            frame: {
+                data: JSON.stringify(gridData)
+            }
         }
 
-        fetch('/api/grid', {
-            method: 'POST',
+        fetch(`http://localhost:3000/api/animations/${slug}/frames/${page}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'x-auth': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiIxMjM0IiwiaWF0IjoxNjM3MzYzNTgxLCJleHAiOjE2Mzc0NDk5ODF9.lXwKr9GFwEQIKWPK098eCqBW38Uyfy5LNhREa3p4yF0'
+                'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJhbmltYXRpb24iOnsiaWQiOjF9fQ.'
             },
             body: JSON.stringify(postData)
         })
@@ -97,6 +92,8 @@ export default function Admin() {
 
     const handleCopyPageClick = () => {
         setPage(c => c + 1);
+
+        // TODO: create a new page with POST request
     }
 
     return (
@@ -142,4 +139,12 @@ export default function Admin() {
             </div>
         </>
     );
+}
+
+export const getServerSideProps = async ({ query }) => {
+    return {
+        props: {
+            slug: query.slug
+        }
+    }
 }

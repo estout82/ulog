@@ -60,14 +60,11 @@
     min-height: 30px;
 }
 
-.nav p {
+.nav * {
     padding: 0 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.nav p {
     cursor: pointer;
 }
 
@@ -76,13 +73,18 @@
     color: rgb(235, 235, 235);
 }
 
-.input {
-    background: none;
-    outline: none;
-    border: none;
-    color:rgb(145, 145, 145);
-}
-
 .yellow {
     color: rgb(206, 191, 102);
+}
+
+.title {
+    text-align: center;
+    color:rgb(145, 145, 145);
+    margin-top: 50px;
+}
+
+.subtitle {
+    color:rgb(70, 123, 230);
+    text-align: center;
+    margin-top: 10px;
 }

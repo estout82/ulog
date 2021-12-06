@@ -1,0 +1,18 @@
+.request {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+}
+
+.prompt {
+    font-size: .7rem;
+    min-width: 20px;
+    padding: 5px;
+    color: rgb(70, 123, 230);
+}
+
+.input {
+    background: none;
+    outline: none;
+    border: none;
+    color:rgb(145, 145, 145);
+}

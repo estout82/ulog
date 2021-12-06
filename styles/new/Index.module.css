@@ -1,0 +1,25 @@
+.title {
+    text-align: center;
+    color:rgb(145, 145, 145);
+    margin-top: 50px;
+}
+
+.subtitle {
+    color:rgb(70, 123, 230);
+    text-align: center;
+    margin-top: 10px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    max-width: 900px;
+    margin: auto;
+}
+
+.animation {
+    padding: 2rem;
+    background:rgb(74, 76, 80);
+    color: rgb(145, 145, 145);
+    margin-top: 2rem;
+}

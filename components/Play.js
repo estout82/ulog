@@ -2,23 +2,24 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/Play.module.css';
 
-export default function Play(props) {
+export default function Play({ slug }) {
     const [animData, setAnimData] = useState({});
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        fetch('/api/anim')
+        fetch(`http://localhost:3000/api/animations/${slug}/frames`)
         .then(res => {
-            if (res.status != 200)
-            {
-                console.error(res);
-                return;
-            }
-            
             return res.json();
         })
         .then(json => {
-            setAnimData(JSON.parse(json.data));
+            let newAnimData = {};
+
+            json.data.forEach((elem) => {
+                let parsed = JSON.parse(elem.data)
+                newAnimData[elem.position] = parsed;
+            });
+
+            setAnimData(newAnimData);
             setInterval(changePage, 200);
         })
         .catch(res => {
