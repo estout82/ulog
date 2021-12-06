@@ -87,7 +87,7 @@ export default function Admin({ slug }) {
             }
         }
 
-        fetch(`http://localhost:3000/api/animations/${slug}/frames/${page}`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_PATH}/api/animations/${slug}/frames/${page}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
