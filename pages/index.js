@@ -21,8 +21,8 @@ export default function New() {
 
     return (
         <>
-            <h1 className={ styles.title }>New Console.Ulog</h1>
-            <p className={ styles.subtitle }>Start typing for an interactive experience</p>
+            <h1 className={ styles.title }>Console Ulog</h1>
+            <p className={ styles.subtitle }>Select a Ulog to get started</p>
 
             <div className={ styles.container }>
                 {
