@@ -42,7 +42,7 @@ export default function New({ slug }) {
 
             <div className={ styles.header }>
                 <div className={ styles.nav }>
-                    <p>Elements</p>
+                    <a href={ `/animations/${slug}/admin` }>Elements</a>
                     <a href='https://github.com/estout82/ulog' rel='noreferrer' target='_blank'>Sources</a>
                     <p className={ styles.selected }>Console</p>
                 </div>
