@@ -7,7 +7,7 @@ export default function New() {
     const [animations, setAnimations] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/animations/')
+        fetch(`${process.env.NEXT_PUBLIC_API_PATH}/api/animations/`)
         .then(res => {
             return res.json();
         })

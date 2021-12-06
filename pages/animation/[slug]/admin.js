@@ -25,7 +25,7 @@ export default function Admin({ slug }) {
     const router = useRouter();
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/animations/${slug}/frames/${page}`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_PATH}/api/animations/${slug}/frames/${page}`, {
             headers: {
                 'Authorization': 'Bearer ' + getToken()
             }
@@ -42,7 +42,7 @@ export default function Admin({ slug }) {
     }, [page, slug]);
 
     const handleLogin = () => {
-        fetch(`http://localhost:3000/api/animations/${slug}/frames/${page}`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_PATH}/api/animations/${slug}/frames/${page}`, {
             headers: {
                 'Authorization': 'Bearer ' + getToken()
             }

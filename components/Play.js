@@ -7,7 +7,7 @@ export default function Play({ slug }) {
     const [page, setPage] = useState(1);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/animations/${slug}/frames`)
+        fetch(`${process.env.NEXT_PUBLIC_API_PATH}/api/animations/${slug}/frames`)
         .then(res => {
             return res.json();
         })

@@ -12,7 +12,7 @@ export default function New({ slug }) {
     const [lines, setLines] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/api/animations/${slug}`)
+        fetch(`${process.env.NEXT_PUBLIC_API_PATH}/api/animations/${slug}`)
         .then(res => {
             return res.json();
         })
