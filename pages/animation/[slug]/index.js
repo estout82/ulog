@@ -1,15 +1,14 @@
 
-import { useState, useEffect } from 'react';
-import Line from '../../../components/console/Line';
+import { useState, useEffect, useRef } from 'react';
+import Chat from '../../../components/console/Chat';
 import Prompt from '../../../components/console/Prompt'
 import Play from '../../../components/Play'
 import styles from '../../../styles/new/animation/Index.module.css'
 
 export default function New({ slug }) {
     const [animation, setAnimation] = useState({});
-    const [frames, setFrames] = useState([]);
-    const [format, setFormat] = useState(0);
-    const [lines, setLines] = useState([]);
+    const [_, setFormat] = useState(0);
+    const [chats, setChats] = useState([]);
 
     useEffect(() => {
         fetch(`${process.env.NEXT_PUBLIC_API_PATH}/api/animations/${slug}`)
@@ -22,16 +21,64 @@ export default function New({ slug }) {
         .catch(res => {
             console.error(res);
         })
-    }, [])
+    }, []);
 
-    function handleLineSubmit(line) {
-        setLines(c => {
-            c.push(line);
-            return c;
+    useEffect(() => {
+        fetch(`${process.env.NEXT_PUBLIC_API_PATH}/api/animations/${slug}/chats`)
+        .then(res => {
+            return res.json();
+        })
+        .then(json => {
+            setChats(json);
+        })
+        .catch(res => {
+            console.error(res);
+        })
+    }, []);
+
+    function handleLineSubmit(body) {
+        fetch(`${process.env.NEXT_PUBLIC_API_PATH}/api/animations/${slug}/chats`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ chat: { body: body } })
+        })
+        .then(res => {
+            return res.json();
+        })
+        .then(json => {
+            
+        })
+        .catch(res => {
+            console.error(res);
         });
-
-        setFormat(c => c + 1);
     }
+
+    useEffect(() => {
+        (async () => {
+            const { createConsumer } = await import('@rails/actioncable');
+            const consumer = createConsumer(`${NEXT_PUBLIC_WS_PATH}`)
+
+            consumer.subscriptions.create(
+                { channel: 'ChatChannel' },
+                { 
+                    received: (chat) => {
+                        console.dir(chats)
+
+                        setChats(c => {
+                            c.push({ body: chat });
+                            return c;
+                        });
+            
+                        setFormat(c => c + 1);
+                    }
+                }
+            )
+        })()
+    }, []);
+
+
 
     return (
         <>
@@ -42,7 +89,7 @@ export default function New({ slug }) {
 
             <div className={ styles.header }>
                 <div className={ styles.nav }>
-                    <a href={ `/animations/${slug}/admin` }>Elements</a>
+                    <a href={ `/animation/${slug}/admin` }>Elements</a>
                     <a href='https://github.com/estout82/ulog' rel='noreferrer' target='_blank'>Sources</a>
                     <p className={ styles.selected }>Console</p>
                 </div>
@@ -62,8 +109,8 @@ export default function New({ slug }) {
             </div>
 
             {
-                lines.map((line, index) => {
-                    return <Line request={ line } key={ index } />
+                chats.map((chat, index) => {
+                    return <Chat body={ chat.body } key={ index } />
                 })
             }
 
