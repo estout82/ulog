@@ -58,7 +58,7 @@ export default function New({ slug }) {
     useEffect(() => {
         (async () => {
             const { createConsumer } = await import('@rails/actioncable');
-            const consumer = createConsumer(`${NEXT_PUBLIC_WS_PATH}`)
+            const consumer = createConsumer(`${process.env.NEXT_PUBLIC_WS_PATH}`)
 
             consumer.subscriptions.create(
                 { channel: 'ChatChannel' },
